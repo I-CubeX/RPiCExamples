@@ -31,8 +31,10 @@ int main(int argc, char *argv[])
    {
       //int val = wiringPiI2CRead(dev);
       int val = wiringPiI2CReadReg8(dev, 0x01);
+      int pitch = wiringPiI2CReadReg8(dev, 0x04);
+      int roll = wiringPiI2CReadReg8(dev, 0x05);
       int sval = analogRead(BASE + 0);
-      printf("i2c val = %i spi0 val = %i \n", val, sval);
+      printf("i2c bearing = %3i   i2c pitch = %3i  i2c roll = %3i   spi0 val = %3i \n", val, pitch, roll, sval);
    }
    return 0;
 }
