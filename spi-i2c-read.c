@@ -6,7 +6,7 @@
 
 #define BASE 100 //mcp3004/8
 #define SPI_CH 0
-#define I2C_ADDR 0x17
+#define I2C_ADDR 0x60
 
 int main(int argc, char *argv[])
 {
@@ -29,7 +29,8 @@ int main(int argc, char *argv[])
 
    while (1)
    {
-      int val = wiringPiI2CRead(dev);
+      //int val = wiringPiI2CRead(dev);
+      int val = wiringPiI2CReadReg8(dev, 0x01);
       int sval = analogRead(BASE + 0);
       printf("i2c val = %i spi0 val = %i \n", val, sval);
    }
