@@ -13,15 +13,15 @@ int main(int argc, char *argv[])
 
    pullUpDnControl(8, PUD_UP);
    pullUpDnControl(9, PUD_UP);
-   if ( (dev = wiringPiI2CSetup(0x17)) == -1) {
-      printf("error init i2c at 0x17\n");
+   if ( (dev = wiringPiI2CSetup(0x1e)) == -1) {
+      printf("error init i2c at 0x1e\n");
       return -1;
    }
    else
-      printf("i2c init at 0x17 OK, dev = %i\n",dev);
+      printf("i2c init at 0x1e OK, dev = %i\n",dev);
    while (1)
    {
-      int val = wiringPiI2CRead(dev);
+      int val = (int)wiringPiI2CReadReg16(dev,0);
       printf("val = %i\n", val);
    }
    return 0;
