@@ -3,10 +3,11 @@
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include <sys/ioctl.h>
-#include <linux/i2c-dev.h>
+#include <stdint.h>
 
 #define I2C_ADDR 0x1e
 #define REG_START 0x03
+uint8_t values[6];
 
 int main(int argc, char *argv[])
 {
@@ -30,19 +31,24 @@ int main(int argc, char *argv[])
              //so we must use WriteReg8
       wiringPiI2CWriteReg8(dev,0x2, 0x01);
       //wiringPiI2CWrite(dev,0x1);
-      delayMicroseconds(7000);
-      __u8 vals[6];
-//      i2c_smbus_read_block_data(dev, REG_START, vals);
-//      for (i=0; i<6; i++) {
-//         printf("%03i  ",vals[i]);
-//      }
+      delayMicroseconds(6000); //takes 6ms between each read
       for (i=0; i<6; i++) {
          wiringPiI2CWrite(dev,REG_START+i);
-         int val = wiringPiI2CRead(dev);
-         printf("%03i  ", val);
+         uint8_t val = wiringPiI2CRead(dev);
+         //printf("%03i  ", val);
+         values[i] = val;
       }
 
-      printf("\n"); 
+      //scaling into uTeslas:
+      //assuming default gain of 1.3 (see adafruit HMC5883 library for details)
+      int x = (int16_t) (values[1] + (int16_t) (values[0] << 8));
+      int z = (int16_t) (values[3] + (int16_t) (values[2] << 8));
+      int y = (int16_t) (values[5] + (int16_t) (values[4] << 8));
+
+      float X = x/1100.0 * 100.0;
+      float Y = y/1100.0 * 100.0;
+      float Z = z/980.0 * 100.0;
+      printf("X = %3.2f Y = %3.2f Z = %3.2f \n",X,Y,Z); 
 
    }
    return 0;
