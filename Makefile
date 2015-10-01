@@ -9,3 +9,7 @@ orient3d: orient3d.c
 
 movearound: movearound.c
 	gcc -Wall -o movearound movearound.c -lwiringPi
+
+
+magnetic3d: magnetic3d.c
+	gcc -Wall -o magnetic3d magnetic3d.c -lwiringPi
