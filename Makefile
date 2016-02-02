@@ -16,3 +16,10 @@ movearound: movearound.c
 
 magnetic3d: magnetic3d.c
 	gcc -Wall -o magnetic3d magnetic3d.c -lwiringPi
+
+
+moist: moist.c
+	gcc -Wall -o moist moist.c -lwiringPi
+
+mag_ori3d : mag_ori3d.c
+	gcc -Wall -o mag_ori3d mag_ori3d.c -lwiringPi
