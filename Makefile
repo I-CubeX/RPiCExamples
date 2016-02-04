@@ -23,3 +23,8 @@ moist: moist.c
 
 mag_ori3d : mag_ori3d.c
 	gcc -Wall -o mag_ori3d mag_ori3d.c -lwiringPi
+
+all: i2c-read spi-i2c-read spi-read8 orient3d movearound magnetic3d mag_ori3d
+
+clean:
+	rm i2c-read spi-i2c-read spi-read8 orient3d movearound magnetic3d mag_ori3d
