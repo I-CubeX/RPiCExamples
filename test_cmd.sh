@@ -1,5 +1,17 @@
+#trap ctrl_c
+trap ctrl_c INT
+
+function ctrl_c() {
+   echo "exiting..."
+
+   i2cset -y 1 0x09 0x70 0x00 0x00 0x00 i # play default script
+
+   exit 0
+}
 
 
+#stop existing script first
+i2cset -y 1 0x09 0x01 0x6F i
 
 #make the blinkM flash a bit...
 for ((i=0;i<4;i++)); do
@@ -30,3 +42,4 @@ while true; do
   
   
 done
+
