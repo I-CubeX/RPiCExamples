@@ -1,2 +1,8 @@
 spi-i2c-read
 i2c-read
+mag_ori3d
+magnetic3d
+moist
+movearound
+orient3d
+spi-read8
